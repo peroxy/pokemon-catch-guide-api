@@ -2,6 +2,7 @@ import express from 'express';
 import { Strategy } from 'passport-http-bearer';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
+import { getPokemon } from './db/db';
 
 const app = express();
 const env = process.env.NODE_ENV || 'development';
@@ -39,4 +40,5 @@ app.get('/', passport.authenticate('bearer', { session: false }), (req, res) => 
 // start the Express server
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
+  getPokemon();
 });
