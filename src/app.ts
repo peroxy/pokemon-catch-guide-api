@@ -5,7 +5,7 @@ const port = process.env.SERVER_PORT || 8080;
 
 // define a route handler for the default home page
 app.get( "/", ( req, res ) => {
-    res.send( "Hello world!" );
+    res.send( "Hello world! hello hehehe wtf" );
 } );
 
 // start the Express server
