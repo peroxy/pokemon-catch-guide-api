@@ -4546,9 +4546,11 @@ id;name;location;version;conditions;method;chance;minLvl;maxLvl;trigger;evolutio
 378;regice;island-cave-area;R/S/E;;only-one;100;40;40;;;no;3;
 379;registeel;ancient-tomb-area;R/S/E;;only-one;100;40;40;;;no;3;
 380;latias;southern-island-area;R/E;;only-one;100;50;50;;;no;3;
-380;latias;roaming-hoenn-area;S/E;story-progress-hall-of-fame;only-one;100;40;40;;;no;3;
+380;latias;roaming-hoenn-area;S;story-progress-hall-of-fame;only-one;100;40;40;;;no;3;
+380;latias;roaming-hoenn-area;E;story-progress-hall-of-fame,tv-option-red;only-one;100;40;40;;;no;3;
 381;latios;southern-island-area;S/E;;only-one;100;50;50;;;no;3;
-381;latios;roaming-hoenn-area;R/E;story-progress-hall-of-fame;only-one;100;40;40;;;no;3;
+381;latios;roaming-hoenn-area;R;story-progress-hall-of-fame;only-one;100;40;40;;;no;3;
+381;latios;roaming-hoenn-area;E;story-progress-hall-of-fame,tv-option-blue;only-one;100;40;40;;;no;3;
 382;kyogre;cave-of-origin-b4f;S;;only-one;100;45;45;;;no;3;
 382;kyogre;marine-cave-area;E;;only-one;100;70;70;;;no;3;
 383;groudon;cave-of-origin-b4f;R;;only-one;100;45;45;;;no;3;
