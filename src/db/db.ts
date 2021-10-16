@@ -9,6 +9,11 @@ export const getPokemonByGeneration = (generation: number): Pokemon[] => {
   return rows.all(generation) as Pokemon[];
 };
 
+export const getPokemonById = (id: number): Pokemon => {
+  const row = database.prepare('SELECT * FROM pokemon WHERE id = ?');
+  return row.get(id) as Pokemon;
+};
+
 export const getEncountersForPokemon = (pokemonId: number): Encounter[] => {
   const rows = database.prepare('SELECT * FROM encounter WHERE pokemon_id = ?');
   return rows.all(pokemonId) as Encounter[];

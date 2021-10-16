@@ -2,7 +2,7 @@ import express from 'express';
 import { Strategy } from 'passport-http-bearer';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
-import { getEncountersForLocation, getEncountersForPokemon, getPokemonByGeneration, updatePokemonCaught } from './db/db';
+import { getEncountersForLocation, getEncountersForPokemon, getPokemonByGeneration, getPokemonById, updatePokemonCaught } from './db/db';
 
 const app = express();
 const env = process.env.NODE_ENV || 'development';
@@ -36,6 +36,17 @@ app.get('/pokemon/generations/:generation', passport.authenticate('bearer', { se
   const generation = parseInt(req.params.generation);
   if (generation) {
     const pokemon = getPokemonByGeneration(generation);
+    res.send(pokemon);
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+app.get('/pokemon/:id', passport.authenticate('bearer', { session: false }), (req, res) => {
+  const id = parseInt(req.params.id);
+  if (id) {
+    const pokemon = getPokemonById(id);
+    console.log(pokemon);
     res.send(pokemon);
   } else {
     res.sendStatus(400);
