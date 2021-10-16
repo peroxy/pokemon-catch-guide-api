@@ -7,7 +7,8 @@
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node .",
-    "live-reload": "nodemon src/app.ts"
+    "live-reload": "nodemon src/app.ts",
+    "insert-from-csv-to-database": "ts-node ./src/db/csv_data/csv_inserter.ts"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
@@ -20,7 +21,8 @@
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "ts-node": "^10.3.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "fast-csv": "^4.3.6"
   },
   "dependencies": {
     "express": "~4.16.1",
