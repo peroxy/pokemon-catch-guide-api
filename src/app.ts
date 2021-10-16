@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import { getEncountersForLocation, getEncountersForPokemon, getPokemonByGeneration, getPokemonById, updatePokemonCaught } from './db/db';
 
 const app = express();
+const cors = require('cors');
 const env = process.env.NODE_ENV || 'development';
 const port = process.env.SERVER_PORT || 8080;
 
@@ -21,6 +22,7 @@ switch (env) {
 }
 
 app.use(passport.initialize());
+app.use(cors());
 
 passport.use(
   new Strategy(function (token, cb) {
@@ -77,11 +79,15 @@ app.post('/pokemon/:pokemon_id/caught/:caught', passport.authenticate('bearer', 
   const pokemonId = parseInt(req.params.pokemon_id);
   const caught = parseInt(req.params.caught);
   if (pokemonId && !isNaN(caught)) {
-    const id = updatePokemonCaught(pokemonId, caught > 0);
+    updatePokemonCaught(pokemonId, caught > 0);
     res.sendStatus(200);
   } else {
     res.sendStatus(400);
   }
+});
+
+app.post('/login', passport.authenticate('bearer', { session: false }), (req, res) => {
+  res.sendStatus(200);
 });
 
 // start the Express server
