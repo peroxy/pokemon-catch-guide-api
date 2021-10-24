@@ -42,10 +42,11 @@ export interface Encounter {
   is_baby: boolean;
 }
 
-export interface EncounterWithName {
+export interface EncounterWithPokemon {
   id: number;
   location: string;
   pokemon_id: number;
+  dex_id: number;
   pokemon_name: string;
   version: string | null;
   conditions: string | null;
@@ -56,4 +57,9 @@ export interface EncounterWithName {
   evolution_trigger: string;
   evolution_method: string;
   is_baby: boolean;
+}
+
+export interface Location {
+  name: string;
+  encounters_number: number;
 }

@@ -1,5 +1,5 @@
 import db from 'better-sqlite3';
-import { Encounter, EncounterWithName, InsertEncounter, InsertPokemon, Pokemon } from './db_models';
+import { Encounter, EncounterWithPokemon, InsertEncounter, InsertPokemon, Location, Pokemon } from './db_models';
 
 const dbPath = process.env.DATABASE_PATH || './src/db/pokemon.db';
 const database = db(dbPath, { fileMustExist: true });
@@ -19,12 +19,27 @@ export const getEncountersForPokemon = (pokemonId: number): Encounter[] => {
   return rows.all(pokemonId) as Encounter[];
 };
 
-export const getEncountersForLocation = (location: string, generation: number): EncounterWithName[] => {
+export const getLocations = (generation: number): Location[] => {
   const rows = database.prepare(`
-    SELECT e.*, p.name as pokemon_name FROM encounter e
+      select location as name, count(*) as encounters_number
+      from (
+         select e.location
+         from encounter e
+            join pokemon p on p.id = e.pokemon_id
+         where p.generation = ?
+         group by e.location, p.name)
+      group by location
+      order by encounters_number desc
+      `);
+  return rows.all(generation) as Location[];
+};
+
+export const getEncountersForLocation = (location: string, generation: number): EncounterWithPokemon[] => {
+  const rows = database.prepare(`
+    SELECT e.*, p.name as pokemon_name, p.dex_id  FROM encounter e
     JOIN pokemon p on e.pokemon_id = p.id
     WHERE location = ? and generation = ?`);
-  return rows.all(location, generation) as EncounterWithName[];
+  return rows.all(location, generation) as EncounterWithPokemon[];
 };
 
 export const updatePokemonCaught = (pokemonId: number, caught: boolean) => {

@@ -2,7 +2,7 @@ import express from 'express';
 import { Strategy } from 'passport-http-bearer';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
-import { getEncountersForLocation, getEncountersForPokemon, getPokemonByGeneration, getPokemonById, updatePokemonCaught } from './db/db';
+import { getEncountersForLocation, getEncountersForPokemon, getLocations, getPokemonByGeneration, getPokemonById, updatePokemonCaught } from './db/db';
 
 const app = express();
 const cors = require('cors');
@@ -70,6 +70,16 @@ app.get('/locations/:location/generations/:generation/encounters', passport.auth
   if (generation) {
     const encounters = getEncountersForLocation(req.params.location, generation);
     res.send(encounters);
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+app.get('/generations/:generation/locations', passport.authenticate('bearer', { session: false }), (req, res) => {
+  const generation = parseInt(req.params.generation);
+  if (generation) {
+    const locations = getLocations(generation);
+    res.send(locations);
   } else {
     res.sendStatus(400);
   }
