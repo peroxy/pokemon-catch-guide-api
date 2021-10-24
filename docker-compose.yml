@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  api:
+    image: peroxy12/pokemon-catch-guide-api:latest
+    ports:
+      - "80:80"
+    environment:
+      - SERVER_PORT=80
+      - API_SECRET_HASH=${API_SECRET_HASH}
+    restart: always

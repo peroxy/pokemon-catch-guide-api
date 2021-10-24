@@ -1,0 +1,6 @@
+node_modules/
+.idea/
+.gitignore
+.prettierrc
+identifier.sqlite
+pokemon-catch-guide-api.iml
