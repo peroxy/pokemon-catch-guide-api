@@ -15,7 +15,7 @@ interface CsvRow {
   maxLvl: number | null;
   trigger: string;
   evolution_method: string;
-  baby: boolean;
+  baby: number;
   generation: number;
 }
 
@@ -39,7 +39,7 @@ function readCsv(csvName: string) {
           evolution_trigger: row.trigger,
           location: row.location,
           version: row.version,
-          is_baby: row.baby ? 1 : 0,
+          is_baby: row.baby,
           max_level: row.maxLvl,
           min_level: row.minLvl,
           obtain_method: row.method,
