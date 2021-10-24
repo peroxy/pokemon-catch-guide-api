@@ -1,5 +1,5 @@
 import db from 'better-sqlite3';
-import { Encounter, InsertEncounter, InsertPokemon, Pokemon } from './db_models';
+import { Encounter, EncounterWithName, InsertEncounter, InsertPokemon, Pokemon } from './db_models';
 
 const dbPath = process.env.DATABASE_PATH || './src/db/pokemon.db';
 const database = db(dbPath, { fileMustExist: true });
@@ -19,12 +19,12 @@ export const getEncountersForPokemon = (pokemonId: number): Encounter[] => {
   return rows.all(pokemonId) as Encounter[];
 };
 
-export const getEncountersForLocation = (location: string, generation: number): Encounter[] => {
+export const getEncountersForLocation = (location: string, generation: number): EncounterWithName[] => {
   const rows = database.prepare(`
-    SELECT e.* FROM encounter e
+    SELECT e.*, p.name as pokemon_name FROM encounter e
     JOIN pokemon p on e.pokemon_id = p.id
     WHERE location = ? and generation = ?`);
-  return rows.all(location, generation) as Encounter[];
+  return rows.all(location, generation) as EncounterWithName[];
 };
 
 export const updatePokemonCaught = (pokemonId: number, caught: boolean) => {

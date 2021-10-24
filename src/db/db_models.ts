@@ -41,3 +41,19 @@ export interface Encounter {
   evolution_method: string;
   is_baby: boolean;
 }
+
+export interface EncounterWithName {
+  id: number;
+  location: string;
+  pokemon_id: number;
+  pokemon_name: string;
+  version: string | null;
+  conditions: string | null;
+  obtain_method: string | null;
+  chance: number | null;
+  min_level: number | null;
+  max_level: number | null;
+  evolution_trigger: string;
+  evolution_method: string;
+  is_baby: boolean;
+}
