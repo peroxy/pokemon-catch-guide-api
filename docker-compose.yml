@@ -3,8 +3,26 @@ services:
   api:
     image: peroxy12/pokemon-catch-guide-api:latest
     ports:
-      - "80:80"
+      - "8080:8080"
     environment:
-      - SERVER_PORT=80
+      - SERVER_PORT=8080
       - API_SECRET_HASH=${API_SECRET_HASH}
     restart: always
+    networks:
+      - pokenet
+  nginx:
+    image: nginx:1.19.7-alpine
+    restart: always
+    ports:
+      - "443:443"
+    networks:
+      - pokenet
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt/live/api.nejc.ninja/fullchain.pem:/etc/letsencrypt/live/api.nejc.ninja/fullchain.pem
+      - /etc/letsencrypt/live/api.nejc.ninja/privkey.pem:/etc/letsencrypt/live/api.nejc.ninja/privkey.pem
+    depends_on:
+      - api
+networks:
+  pokenet:
+    name: pokenet_network
