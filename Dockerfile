@@ -19,7 +19,7 @@ RUN apk --no-cache -U upgrade
 RUN mkdir -p /home/node/app/dist && chown -R node:node /home/node/app
 WORKDIR /home/node/app
 RUN npm i -g pm2
-COPY package*.json process.yml src/db/pokemon.db ./
+COPY package*.json process.yml ./
 RUN apk add g++ make python
 
 # Switch to user node

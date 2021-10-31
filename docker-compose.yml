@@ -8,6 +8,9 @@ services:
       - SERVER_PORT=8080
       - API_SECRET_HASH=${API_SECRET_HASH}
     restart: always
+    user: "${UID}:${GID}"
+    volumes:
+      - ./pokemon.db:/home/node/app/pokemon.db:rw
     networks:
       - pokenet
   nginx:
