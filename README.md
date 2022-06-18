@@ -53,6 +53,39 @@ For example, if your `NODE_ENV` environment variable is set to `development` you
 
 On `production` environment you will have to specify an environment variable `API_SECRET_HASH` that represents your bcrypt hashed secret. 
 
+## Deployment
+```shell
+# ssh into server
+
+# install letsencrypt certificate
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot certonly --standalone
+# check if renewal works 
+sudo certbot renew --dry-run
+
+# update api.conf and docker-compose.yml with correct /etc/letsencrypt path and domain
+
+mkdir pokemon-catch-guide && cd pokemon-catch-guide 
+wget https://raw.githubusercontent.com/peroxy/pokemon-catch-guide-api/master/docker-compose.yml
+wget https://raw.githubusercontent.com/peroxy/pokemon-catch-guide-api/master/src/db/pokemon.db
+wget https://raw.githubusercontent.com/peroxy/pokemon-catch-guide-api/master/nginx/conf.d/api.conf -O ./nginx/conf.d/api.conf
+
+# create .env file
+touch .env && nano .env 
+# insert API_SECRET_HASH='bcrypt encrypted hash' < very important that you take the password and then encrypt it with bcrypt, needs to be the hash!
+
+docker-compose up -d  
+```
+
+### Troubleshooting 
+
+#### PEM_read_bio_X509_AUX() failed (SSL: error:0909006C:PEM routines:get_name:no start line:Expecting: TRUSTED CERTIFICATE)
+
+If nginx exits and logs this error the docker volume isn't working correctly - but it's probably just docker service being stupid. 
+**Restart the server** - docker-compose.yml is 100% correct.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
