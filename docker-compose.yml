@@ -22,8 +22,8 @@ services:
       - pokenet
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - /etc/letsencrypt/live/api.peroxy.tech/fullchain.pem:/etc/letsencrypt/live/api.peroxy.tech/fullchain.pem
-      - /etc/letsencrypt/live/api.peroxy.tech/privkey.pem:/etc/letsencrypt/live/api.peroxy.tech/privkey.pem
+      - /etc/letsencrypt/live/api.nejc.online/fullchain.pem:/etc/letsencrypt/live/api.nejc.online/fullchain.pem
+      - /etc/letsencrypt/live/api.nejc.online/privkey.pem:/etc/letsencrypt/live/api.nejc.online/privkey.pem
     depends_on:
       - api
 networks:
